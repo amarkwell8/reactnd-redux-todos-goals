@@ -113,7 +113,13 @@
     }
     const store = createStore(app)
     store.subscribe(() => {
-      console.log('The new state is: ', store.getState())
+      const{ goals, todos} = store.getState();
+
+      document.getElementById('goals').innerHTML = ''
+      document.getElementById('todos').innerHTML = ''
+
+      goals.forEach(addGoalToDom)
+      todos.forEach(addTodoToDom)
     })
     /*store.dispatch(addTodoAction({
       id: 0,
@@ -165,6 +171,20 @@
         .addEventListener('click', addTodo)
     document.getElementById('goalBtn')
         .addEventListener('click', addGoal)
+
+    function addTodoToDom(todo) {
+        const node =document.createElement('li');
+        const text =document.createTextNode(todo.name);
+        node.appendChild(text);
+        document.getElementById('todos').appendChild(node);
+    }
+
+    function addGoalToDom(goal) {
+        const node =document.createElement('li');
+        const text =document.createTextNode(goal.name);
+        node.appendChild(text);
+        document.getElementById('goals').appendChild(node);
+    }
   </script>
 </body>
 </html>
